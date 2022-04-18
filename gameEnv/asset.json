@@ -1,0 +1,14 @@
+{
+  "id": "2f71de61-b809-4d85-8cf3-d0a754077496",
+  "name": "Test smart item",
+  "tags": [],
+  "category": "test",
+  "parameters": [
+    {
+      "id": "enableTweener",
+      "label": "Enable Tweener",
+      "type": "boolean",
+      "default": true
+    },
+  ]
+}
