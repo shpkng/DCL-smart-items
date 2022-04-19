@@ -1,0 +1,23 @@
+{
+  "id": "4402edea-629f-4539-9ae2-b52d0638c280",
+  "name": "MUA Button",
+  "tags": ["function"],
+  "model": "models/cube.glb",
+  "category": "Smart Items",
+  "parameters": [{
+    "id": "onClick",
+    "label": "OnClick",
+    "type": "actions"
+  },
+    {
+      "id": "target",
+      "label": "Target",
+      "type": "entity"
+    },
+    {
+      "id": "hint",
+      "label": "Hint",
+      "type": "text"
+    }
+  ]
+}

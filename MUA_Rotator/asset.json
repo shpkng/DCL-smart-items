@@ -4,6 +4,7 @@
   "tags": [
     "function"
   ],
+  "model": "models/cube.glb",
   "category": "Smart Items",
   "parameters": [
     {
@@ -13,15 +14,15 @@
       "default": 1
     },
     {
-      "id": "target",
-      "label": "Target",
-      "type": "entity"
-    },
-    {
       "id": "axis",
       "label": "Axis To Rotate Around",
       "type": "text",
       "default": "y"
+    },
+    {
+      "id": "target",
+      "label": "Target",
+      "type": "entity"
     }
   ]
 }

@@ -4,6 +4,8 @@ export class MUARotatorComponent {
     axis: string = "y"
     target: Entity
 
+    curDegree: number = 0
+
     constructor(angularSpeed: number, axis: string, target: Entity) {
         this.angularSpeed = angularSpeed
         this.axis = axis
@@ -15,7 +17,8 @@ export class MUARotatorComponent {
         if (this.axis === "x") {
             transform.rotation = Quaternion.Euler(transform.eulerAngles.x + this.angularSpeed * dt, transform.eulerAngles.y, transform.eulerAngles.z)
         } else if (this.axis === "y") {
-            transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y + this.angularSpeed * dt, transform.eulerAngles.z)
+            this.curDegree = (this.curDegree + this.angularSpeed * dt) % 360
+            transform.rotation = Quaternion.Euler(0, this.curDegree, 0)
         } else if (this.axis === "z") {
             transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z + this.angularSpeed * dt)
         }

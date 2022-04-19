@@ -14,13 +14,8 @@ export class MUAMover implements IScript<Props> {
     }
 
     spawn(host: Entity, props: Props, channel: IChannel): void {
-        let target
-        for (const entity in engine.entities) {
-            const ent = engine.entities[entity] as Entity
-            if (ent.name == props.platform)
-                target = ent
-        }
-        const component = host.addComponent(new MUAMoverComponent(props.speed, props.stageJson, target, target.getComponentOrCreate(new Transform())))
+        let target = engine.entities[props.platform] as Entity
+        const component = host.addComponent(new MUAMoverComponent(props.speed, props.stageJson, target, target.getComponentOrCreate(Transform)))
         channel.request<string>("stageId", reply => {
             component.setStageInfo(reply)
         })
