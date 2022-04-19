@@ -1,0 +1,27 @@
+{
+  "id": "6bd8bcb0-e97b-498d-94f7-9eabf4615e2e",
+  "name": "MUA Rotator",
+  "tags": [
+    "function"
+  ],
+  "category": "Smart Items",
+  "parameters": [
+    {
+      "id": "angularSpeed",
+      "label": "Angular Speed(In Degree)",
+      "type": "float",
+      "default": 1
+    },
+    {
+      "id": "target",
+      "label": "Target",
+      "type": "entity"
+    },
+    {
+      "id": "axis",
+      "label": "Axis To Rotate Around",
+      "type": "text",
+      "default": "y"
+    }
+  ]
+}

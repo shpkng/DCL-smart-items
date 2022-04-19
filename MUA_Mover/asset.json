@@ -1,9 +1,9 @@
 {
   "id": "ca897c05-2f52-4554-bd3b-f40d600a68ff",
-  "name": "MovingPlatform",
+  "name": "MUA Mover",
   "tags": ["function"],
   "model": "models/cube.glb",
-  "category": "decoration",
+  "category": "Smart Items",
   "parameters": [
     {
       "id": "speed",
@@ -18,7 +18,7 @@
     },
     {
       "id": "platform",
-      "label": "Platform",
+      "label": "Target",
       "type": "entity"
     },
     {

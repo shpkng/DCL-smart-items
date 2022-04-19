@@ -1,4 +1,4 @@
-class TransportStage {
+export class TransportStage {
     pos: Vector3
     stayTime: number
 
@@ -8,10 +8,10 @@ class TransportStage {
     }
 }
 
-@Component("TransportPlatformUpdateComponent")
-export class TransportPlatformUpdateComponent {
+@Component("MUAMoverComponent")
+export class MUAMoverComponent {
     speed: number = 0
-    stages: TransportStage[] = []
+    stages: TransportStage[]
     platform: Entity
     // from pos {stage} to pos {stage + 1}
     stageId: number = 0
@@ -20,6 +20,8 @@ export class TransportPlatformUpdateComponent {
     curStage: TransportStage
     nextStage: TransportStage
 
+    backwards: boolean = false
+
     constructor(speed, stageJson, platform, transform) {
         this.speed = speed
         this.stages = JSON.parse(stageJson)
@@ -27,9 +29,25 @@ export class TransportPlatformUpdateComponent {
         this.transform = transform
     }
 
+
     update(dt: number): void {
         let curStage = this.stages[this.stageId]
-        let nextStageId = this.stages.length > this.stageId + 1 ? this.stageId + 1 : this.stageId - 1
+        let nextStageId
+        if (this.backwards) {
+            if (this.stageId == 0) {
+                this.backwards = false
+                nextStageId = this.stageId + 1
+            } else {
+                nextStageId = this.stageId - 1
+            }
+        } else {
+            if (this.stageId == this.stages.length - 1) {
+                nextStageId = this.stageId - 1
+                this.backwards = true
+            } else {
+                nextStageId = this.stageId + 1
+            }
+        }
         let nextStage = this.stages[nextStageId]
         let thisX = curStage.pos.x;
         let nextX = nextStage.pos.x;
@@ -60,8 +78,9 @@ export class TransportPlatformUpdateComponent {
         return `${this.stageId},${this.duration}`
     }
 
-    setStageInfo(stageInfoStr: string[]) {
-        this.stageId = parseInt(stageInfoStr[0])
-        this.duration = parseFloat(stageInfoStr[1])
+    setStageInfo(stageInfoStr: string) {
+        const str = stageInfoStr.split(",")
+        this.stageId = parseInt(str[0])
+        this.duration = parseFloat(str[1])
     }
 }
