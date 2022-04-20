@@ -1,4 +1,3 @@
-/// <reference types="dcl" />
 /**
  * Fragment of a conversation with an NPC
  *
@@ -19,24 +18,25 @@
  * @property {number} timeOn How long to keep the text visible before moving on to the next entry. Only for bubble dialogs!
  *
  */
-export declare type Dialog = {
-    text: string;
-    name?: string;
-    fontSize?: number;
-    offsetX?: number;
-    offsetY?: number;
-    typeSpeed?: number;
-    isEndOfDialog?: boolean;
-    triggeredByNext?: () => void;
-    portrait?: ImageData;
-    image?: ImageData;
-    isQuestion?: boolean;
-    isFixedScreen?: boolean;
-    buttons?: ButtonData[];
-    audio?: string;
-    skipable?: boolean;
-    timeOn?: number;
-};
+export type Dialog = {
+  text: string
+  name?: string
+  fontSize?: number
+  offsetX?: number
+  offsetY?: number
+  typeSpeed?: number
+  isEndOfDialog?: boolean
+  triggeredByNext?: () => void
+  portrait?: ImageData
+  image?: ImageData
+  isQuestion?: boolean
+  isFixedScreen?: boolean
+  buttons?: ButtonData[]
+  audio?: string
+  skipable?: boolean
+  timeOn?: number
+}
+
 /**
  *
  * @typedef {Object} TriggerData - Object with data for a NPCTriggerComponent
@@ -48,15 +48,16 @@ export declare type Dialog = {
  * @property {() => void} onCameraExit callback when the player leaves the trigger area
  * @property {boolean} enableDebug when true makes the trigger area visible for debug purposes.
  */
-export declare type TriggerData = {
-    layer?: number;
-    triggeredByLayer?: number;
-    onTriggerEnter?: (entity: Entity) => void;
-    onTriggerExit?: (entity: Entity) => void;
-    onCameraEnter?: () => void;
-    onCameraExit?: () => void;
-    enableDebug?: boolean;
-};
+export type TriggerData = {
+  layer?: number
+  triggeredByLayer?: number
+  onTriggerEnter?: (entity: Entity) => void
+  onTriggerExit?: (entity: Entity) => void
+  onCameraEnter?: () => void
+  onCameraExit?: () => void
+  enableDebug?: boolean
+}
+
 /**
  * Data for Button to show on a question in a Dialog entry
  *
@@ -69,29 +70,31 @@ export declare type TriggerData = {
  * @property {number} offsetY Offset of the text on the Y axis, relative to its normal position.
  *
  */
-export declare type ButtonData = {
-    goToDialog: number | string;
-    label: string;
-    triggeredActions?: () => void;
-    fontSize?: number;
-    offsetX?: number;
-    offsetY?: number;
-};
-export declare enum ButtonStyles {
-    E = "e",
-    F = "f",
-    DARK = "dark",
-    RED = "red",
-    ROUNDBLACK = "roundblack",
-    ROUNDWHITE = "roundwhite",
-    ROUNDSILVER = "roundsilver",
-    ROUNDGOLD = "roundgold",
-    SQUAREBLACK = "squareblack",
-    SQUAREWHITE = "squarewhite",
-    SQUARESILVER = "squaresilver",
-    SQUAREGOLD = "squaregold",
-    WHITE = "white"
+export type ButtonData = {
+  goToDialog: number | string
+  label: string
+  triggeredActions?: () => void
+  fontSize?: number
+  offsetX?: number
+  offsetY?: number
 }
+
+export enum ButtonStyles {
+  E = `e`,
+  F = `f`,
+  DARK = `dark`,
+  RED = `red`,
+  ROUNDBLACK = `roundblack`,
+  ROUNDWHITE = `roundwhite`,
+  ROUNDSILVER = `roundsilver`,
+  ROUNDGOLD = `roundgold`,
+  SQUAREBLACK = `squareblack`,
+  SQUAREWHITE = `squarewhite`,
+  SQUARESILVER = `squaresilver`,
+  SQUAREGOLD = `squaregold`,
+  WHITE = `white`
+}
+
 /**
  * An NPC capable of having conversations with the player, and play different animations.
  *
@@ -117,28 +120,30 @@ export declare enum ButtonStyles {
  * @property {boolean} noUI If true, no UI dialog elements are constructed. The NPC can use speech bubbles.
 *
  */
-export declare type NPCData = {
-    portrait?: string | ImageData;
-    reactDistance?: number;
-    idleAnim?: string;
-    faceUser?: boolean;
-    turningSpeed?: number;
-    onlyExternalTrigger?: boolean;
-    onlyClickTrigger?: boolean;
-    onlyETrigger?: boolean;
-    onWalkAway?: () => void;
-    continueOnWalkAway?: boolean;
-    darkUI?: boolean;
-    coolDownDuration?: number;
-    hoverText?: string;
-    dialogSound?: string;
-    walkingAnim?: string;
-    walkingSpeed?: number;
-    path?: Vector3[];
-    textBubble?: boolean;
-    bubbleHeight?: number;
-    noUI?: boolean;
-};
+export type NPCData = {
+  portrait?: string | ImageData
+  reactDistance?: number
+  idleAnim?: string
+  faceUser?: boolean
+  turningSpeed?: number
+  onlyExternalTrigger?: boolean
+  onlyClickTrigger?: boolean
+  onlyETrigger?: boolean
+  onWalkAway?: () => void
+  continueOnWalkAway?: boolean
+  darkUI?: boolean
+  coolDownDuration?: number
+  hoverText?: string
+  dialogSound?: string
+  walkingAnim?: string
+  walkingSpeed?: number
+  path?: Vector3[]
+  textBubble?: boolean
+  bubbleHeight?: number
+  noUI?: boolean
+  
+}
+
 /**
  * Make an NPC walk following a path
  *
@@ -153,16 +158,17 @@ export declare type NPCData = {
  * @property {() => void} onReachedPointCallback Function to call once every time the NPC reaches a point in the path.
  *
  */
-export declare type FollowPathData = {
-    startingPoint?: number;
-    loop?: boolean;
-    curve?: boolean;
-    totalDuration?: number;
-    speed?: number;
-    path?: Vector3[];
-    onFinishCallback?: () => void;
-    onReachedPointCallback?: () => void;
-};
+export type FollowPathData = {
+  startingPoint?: number
+  loop?: boolean
+  curve?: boolean
+  totalDuration?: number
+  speed?: number
+  path?: Vector3[]
+  onFinishCallback?: () => void
+  onReachedPointCallback?: () => void
+}
+
 /**
  * Cut out a section of an image file
  *
@@ -173,12 +179,13 @@ export declare type FollowPathData = {
  * @property {number} sourceTop Topmost pixel to select from image
  *
  */
-export declare type ImageSection = {
-    sourceWidth: number;
-    sourceHeight: number;
-    sourceLeft?: number;
-    sourceTop?: number;
-};
+export type ImageSection = {
+  sourceWidth: number
+  sourceHeight: number
+  sourceLeft?: number
+  sourceTop?: number
+}
+
 /**
  *
  *
@@ -191,16 +198,18 @@ export declare type ImageSection = {
  * @property {ImageSection} section Use only a section of the image file, useful when arranging multiple icons into an image atlas. This field takes an `ImageSection` object, specifying `sourceWidth` and `sourceHeight`, and optionally also `sourceLeft` and `sourceTop`.
  *
  */
-export declare type ImageData = {
-    path: string;
-    offsetX?: number;
-    offsetY?: number;
-    height?: number;
-    width?: number;
-    section?: ImageSection;
-};
-export declare enum NPCState {
-    STANDING = "standing",
-    TALKING = "talking",
-    FOLLOWPATH = "followPath"
+export type ImageData = {
+  path: string
+  offsetX?: number
+  offsetY?: number
+  height?: number
+  width?: number
+  section?: ImageSection
+}
+
+export enum NPCState {
+  STANDING = 'standing',
+  TALKING = 'talking',
+  FOLLOWPATH = 'followPath'
+  //FOLLOWPLAYER = 'followPlayer'
 }

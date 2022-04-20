@@ -1,4 +1,4 @@
-import {NPC, NPCDelay} from "../npc-scene-utils";
+import {NPC, NPCDelay} from "./npc-utils/index";
 
 
 export type Props = {
@@ -15,8 +15,21 @@ export class MUADialogNPC implements IScript<Props> {
     }
 
     spawn(host: any, props: Props, channel: IChannel): void {
-        let target = engine.entities[props.target] as Entity
-
+        const message = [
+            {
+                text: `I really lo-ove cats`,
+                isEndOfDialog: true
+            }
+        ]
+        let target
+        for (const entity in engine.entities) {
+            const ent = engine.entities[entity] as Entity
+            if (ent.name == props.target)
+                target = ent
+        }
+        let npc = new NPC(target, () => {
+            npc.talk(message, 0)
+        })
     }
 
 }

@@ -1,7 +1,9 @@
 {
   "id": "ca897c05-2f52-4554-bd3b-f40d600a68ff",
   "name": "MUA Mover",
-  "tags": ["function"],
+  "tags": [
+    "function"
+  ],
   "model": "models/cube.glb",
   "category": "Smart Items",
   "parameters": [
@@ -17,15 +19,29 @@
       "type": "text"
     },
     {
-      "id": "platform",
+      "id": "target",
       "label": "Target",
       "type": "entity"
     },
     {
       "id": "mode",
       "label": "Mode (rewind or loop)",
-      "type": "text",
-      "default": "loop"
+      "type": "options",
+      "options": [
+        {
+          "label": "Rewind",
+          "value": "rewind"
+        },
+        {
+          "label": "Loop",
+          "value": "loop"
+        },
+        {
+          "label": "Triggered",
+          "value": "triggered"
+        }
+      ],
+      "default": "rewind"
     }
   ],
   "actions": [
