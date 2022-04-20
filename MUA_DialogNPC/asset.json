@@ -1,9 +1,63 @@
 {
   "id": "052224ec-e57f-440f-9027-5a28d976b8c5",
   "name": "MUA NPC",
-  "tags": [],
-  "category": "function",
-  "parameters": [{
-
-  }]
+  "tags": [
+    "function"
+  ],
+  "model": "models/cube.glb",
+  "category": "Smart Items",
+  "parameters": [
+    {
+      "id": "linesJson",
+      "label": "Lines Json",
+      "type": "text",
+      "default": "[{\"text\":\"I really lo-ove cats\",\"isEndOfDialog\":true}]"
+    },
+    {
+      "id": "target",
+      "label": "Target",
+      "type": "entity"
+    },
+    {
+      "id": "idleAnimName",
+      "label": "Idle Anim Name",
+      "type": "text"
+    },
+    {
+      "id": "faceUser",
+      "label": "Face User?",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "id": "turnSpeed",
+      "label": "Turn Speed",
+      "type": "float"
+    },
+    {
+      "id": "portrait",
+      "label": "Portrait Image Path",
+      "type": "text"
+    },
+    {
+      "id": "walkingAnimName",
+      "label": "Walking Anim Name",
+      "type": "text"
+    },
+    {
+      "id": "pathJson",
+      "label": "Patrol Path Json",
+      "type": "text"
+    },
+    {
+      "id": "bubbleHeight",
+      "label": "Bubble Height",
+      "type": "float"
+    },
+    {
+      "id": "textBubble",
+      "label": "Use Text Bubble",
+      "type": "boolean"
+    }
+  ]
 }

@@ -62,7 +62,7 @@ export type TriggerData = {
  * Data for Button to show on a question in a Dialog entry
  *
  * @typedef {Object} ButtonData - Object with data for a Dialog UI button
- * @property {string|number} goToDialog The index or name of the next dialog entry to display when activated.
+ * @property {string|number} goToDialog The index.ts or name of the next dialog entry to display when activated.
  * @property {string} label The label to show on the button.
  * @property {() => void} triggeredActions An additional function to run whenever the button is activated
  * @property {number} fontSize Font size of the text

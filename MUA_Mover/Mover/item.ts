@@ -20,7 +20,7 @@ export class MUAMover implements IScript<Props> {
             if (ent.name == props.target)
                 target = ent
         }
-        const component = host.addComponent(new MUAMoverComponent(props.speed, props.stageJson, props.mode, target, target.getComponentOrCreate(Transform)))
+        const component = host.addComponent(new MUAMoverComponent(props.speed, props.stageJson, props.mode, target, target.getComponent(Transform)))
         // [{"pos":{"x":8,"y":0.5,"z":8},"stayTime":1},{"pos":{"x":8,"y":5,"z":8},"stayTime":1},{"pos":{"x":13,"y":5,"z":13},"stayTime":5},{"pos":{"x":13,"y":1,"z":13},"stayTime":1}]
         channel.request<string>("stageId", reply => {
             component.setStageInfo(reply)

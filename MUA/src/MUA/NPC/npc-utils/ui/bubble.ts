@@ -143,7 +143,7 @@ export class DialogBubble {
   /**
    * Opens a dialog bubble to start a conversation.
    * @param {Dialog[]} NPCScript  Instructions to follow during the conversation
-   * @param {number|string} textId Where to start in the script. Can refer to an index in the array or the `name` field of a Dialog entry.
+   * @param {number|string} textId Where to start in the script. Can refer to an index.ts in the array or the `name` field of a Dialog entry.
    */
   public openDialogWindow(NPCScript: Dialog[], textId?: number | string): void {
     this.NPCScript = NPCScript

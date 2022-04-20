@@ -50,8 +50,16 @@ export class NPC extends Entity {
         data?: NPCData
     ) {
         super()
-        this.addComponent(entity.getComponent(Transform))
-        this.addComponent(entity.getComponent(GLTFShape))
+        let transform = entity.getComponent(Transform)
+        const transformComp = new Transform({
+            position: transform.position,
+            rotation: transform.rotation,
+            scale: transform.scale,
+        })
+        this.addComponent(transformComp)
+        let shape = entity.getComponent(GLTFShape)
+        entity.removeComponent(shape)
+        this.addComponent(shape)
         engine.removeEntity(entity)
         engine.addEntity(this)
 
@@ -253,7 +261,7 @@ export class NPC extends Entity {
     /**
      * Starts a conversation, using the Dialog UI
      * @param {Dialog[]} script Instructions to follow during the conversation
-     * @param {number|string} startIndex Where to start in the script. Can refer to an index in the array or the `name` field of a Dialog entry.
+     * @param {number|string} startIndex Where to start in the script. Can refer to an index.ts in the array or the `name` field of a Dialog entry.
      * @param {number} duration In seconds. If set, the UI will close after the set time
      *
      */
@@ -282,7 +290,7 @@ export class NPC extends Entity {
     /**
      * Starts a conversation, using the Dialog UI
      * @param {Dialog[]} script Instructions to follow during the conversation
-     * @param {number|string} startIndex Where to start in the script. Can refer to an index in the array or the `name` field of a Dialog entry.
+     * @param {number|string} startIndex Where to start in the script. Can refer to an index.ts in the array or the `name` field of a Dialog entry.
      *
      */
     talkBubble(script: Dialog[], startIndex?: number | string) {

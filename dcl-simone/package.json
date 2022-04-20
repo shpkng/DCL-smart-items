@@ -1,7 +1,7 @@
 {
-  "name": "mua-npc",
+  "name": "dcl-project",
   "version": "1.0.0",
-  "description": "MUA NPC",
+  "description": "My new Decentraland project",
   "scripts": {
     "start": "dcl start",
     "build": "build-ecs",
@@ -11,9 +11,6 @@
     "ecs:install-next": "npm install --save-dev decentraland-ecs@next"
   },
   "devDependencies": {
-    "decentraland-ecs": "^6.6.1-20201008141239.commit-6001543"
-  },
-  "dependencies": {
-    "decentraland-builder-scripts": "^0.24.0"
+    "decentraland-ecs": "latest"
   }
 }
