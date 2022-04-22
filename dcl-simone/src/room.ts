@@ -1,63 +1,149 @@
 import ButtonCreator from "MUA/Button/index";
-import NPCUtils from "MUA/NPC/index"
+import Mover from "./MUA/Mover/index";
+import Rotator from "./MUA/Rotator/index";
 
-const root = new Entity("aerocraft")
-root.addComponent(new Transform({
-    position: new Vector3(1, 0, 1)
-}))
+enum Status {
+    Open,
+    Closed,
+    Opening,
+    Closing
+}
 
-const box = new Entity("box")
-box.addComponent(new Transform({
-    position: new Vector3(5, 0, 0)
-}))
-box.addComponent(new BoxShape())
-box.setParent(root)
+export class Room extends Entity {
 
-const body = new Entity("1")
-body.addComponent(new Transform({
-    position: new Vector3(0, 0, 0)
-}))
-body.addComponent(new GLTFShape("models/aerocraft/001.glb"))
-body.setParent(root)
-//
-// const floor = new Entity("2")
-// floor.addComponent(new Transform({
-//     position: new Vector3(1, 1, 1)
-// }))
-// floor.addComponent(new GLTFShape("models/aerocraft/002.glb"))
-// floor.setParent(root)
+    private readonly root: Entity;
+    private status: Status = Status.Closed;
+    private upPosition: Vector3;
+    private downPosition: Vector3;
+    private body: Entity;
+    private front: Entity;
+    private back: Entity;
+    private left: Entity;
+    private right: Entity;
 
-const front = new Entity("frontDoor")
-front.addComponent(new Transform({
-    position: new Vector3(3, 1, 0),
-    rotation: Quaternion.Euler(34, 90, 0),
-}))
-front.addComponent(new GLTFShape("models/aerocraft/door.glb"))
-front.setParent(root)
+    moveUp(onEnd?: () => void) {
+        Mover.to(this.root, 1, this.upPosition, onEnd)
+    }
 
-const back = new Entity("backDoor")
-back.addComponent(new Transform({
-    position: new Vector3(-3, 1, 0),
-    rotation: Quaternion.Euler(34, 270, 0)
-}))
-back.addComponent(new GLTFShape("models/aerocraft/door.glb"))
-back.setParent(root)
+    moveDown(onEnd?: () => void) {
+        Mover.to(this.root, 1, this.downPosition, onEnd)
+    }
 
-const left = new Entity("leftDoor")
-left.addComponent(new Transform({
-    position: new Vector3(0, 1, -3),
-    rotation: Quaternion.Euler(34, 180, 0)
-}))
-left.addComponent(new GLTFShape("models/aerocraft/door.glb"))
-left.setParent(root)
+    open(onEnd?: () => void) {
+        if (this.status === Status.Open || this.status === Status.Opening)
+            return;
+        this.status = Status.Opening;
+        const angularSpeed = 20
+        Rotator.to(this.left, angularSpeed, Quaternion.Euler(120, 180, 0))
+        Rotator.to(this.right, angularSpeed, Quaternion.Euler(120, 0, 0))
+        Rotator.to(this.front, angularSpeed, Quaternion.Euler(120, 90, 0), onEnd)
+        Rotator.to(this.back, angularSpeed, Quaternion.Euler(120, 270, 0), () => {
+            this.status = Status.Open
+        })
+    }
 
-const right = new Entity("rightDoor")
-right.addComponent(new Transform({
-    position: new Vector3(0, 1, 3),
-    rotation: Quaternion.Euler(34, 0, 0),
-}))
+    close(onEnd?: () => void) {
+        if (this.status === Status.Closed || this.status === Status.Closing)
+            return;
+        this.status = Status.Closing;
+        const angularSpeed = 20
+        Rotator.to(this.left, angularSpeed, Quaternion.Euler(34, 180, 0))
+        Rotator.to(this.right, angularSpeed, Quaternion.Euler(34, 0, 0))
+        Rotator.to(this.front, angularSpeed, Quaternion.Euler(34, 90, 0), onEnd)
+        Rotator.to(this.back, angularSpeed, Quaternion.Euler(34, 270, 0), () => {
+            this.status = Status.Closed
+        })
+    }
 
-right.addComponent(new GLTFShape("models/aerocraft/door.glb"))
-right.setParent(root)
+    constructor(name: string, downPosition: Vector3, upPosition: Vector3, rotation: Quaternion) {
+        super()
+        this.upPosition = upPosition
+        this.downPosition = downPosition
+        this.root = new Entity("aerocraft")
+        this.root.addComponent(new Transform({
+            position: downPosition,
+            rotation: rotation,
+        }))
+        engine.addEntity(this.root)
 
-engine.addEntity(root)
+        // const buttonUp = this.addPart({
+        //     name: "buttonUp",
+        //     model: "models/aerocraft/button.glb",
+        //     position: upPosition,
+        //     rotation: Quaternion.Euler(0, 0, 0),
+        // })
+        //
+        // const buttonDown = this.addPart({
+        //     name: "buttonDown",
+        //     model: "",
+        //     position: new Vector3(0, 0, 0),
+        //     rotation: Quaternion.Euler(0, 0, 0),
+        // })
+        // ButtonCreator.setButton(buttonDown, e => {
+        //
+        // }, "Go Down")
+
+        const doorPath = "models/aerocraft/door.glb"
+        this.front = this.addPart({
+            name: "frontDoor",
+            model: doorPath,
+            position: new Vector3(2.3, 0, 0),
+            rotation: Quaternion.Euler(34, 90, 0),
+        })
+
+        this.back = this.addPart({
+            name: "backDoor",
+            model: doorPath,
+            position: new Vector3(-2.3, 0, 0),
+            rotation: Quaternion.Euler(34, 270, 0),
+        })
+
+        this.left = this.addPart({
+            name: "leftDoor",
+            model: doorPath,
+            position: new Vector3(0, 0, -2.3),
+            rotation: Quaternion.Euler(34, 180, 0),
+        })
+
+        this.right = this.addPart({
+            name: "rightDoor",
+            model: doorPath,
+            position: new Vector3(0, 0, 2.3),
+            rotation: Quaternion.Euler(34, 0, 0),
+        })
+
+
+        this.body = this.addPart({
+            name: "body",
+            model: "models/aerocraft/001.glb",
+            position: new Vector3(0, 0, 0),
+            rotation: Quaternion.Euler(0, 0, 0),
+        })
+    }
+
+    addPart(args
+                :
+                {
+                    name: string,
+                    model
+                        :
+                        string,
+                    position
+                        :
+                        Vector3,
+                    rotation
+                        :
+                        Quaternion
+                }
+    ):
+        Entity {
+        const t = new Entity(args.name)
+        t.addComponent(new GLTFShape(args.model))
+        t.addComponent(new Transform({
+            position: args.position,
+            rotation: args.rotation
+        }))
+        t.setParent(this.root)
+        return t
+    }
+}

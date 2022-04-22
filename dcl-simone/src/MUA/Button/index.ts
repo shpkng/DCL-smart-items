@@ -1,6 +1,6 @@
 class MUAButtonCreator {
-    setButton(host: Entity, callback: (event: IEvents['pointerDown']) => void, hoverText: string, distance: number) {
-        host.addComponent(new OnPointerDown(callback, {
+    setButton(target: Entity, callback: (event: IEvents['pointerDown']) => void, hoverText: string, distance?: number) {
+        target.addComponent(new OnPointerDown(callback, {
             distance: distance,
             hoverText: hoverText,
         }))

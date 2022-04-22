@@ -1,20 +1,52 @@
 import {MUARotatorSystem} from "./system";
-import {MUARotatorComponent} from "./component";
+import {Mode, MUARotatorComponent, RotationData} from "./component";
 
 
-class RotateUtils {
-    AxisX = "x"
-    AxisY = "y"
-    AxisZ = "z"
+class Rotator {
+
+    rewindLoop(target: Entity,
+               angularSpeed: number,
+               rotations: RotationData[],
+               onRotEnd?: () => void) {
+        return target.addComponentOrReplace(new MUARotatorComponent(target, rotations, angularSpeed, Mode.RewindLoop, onRotEnd));
+    }
+
+    loop(target: Entity,
+         angularSpeed: number,
+         rotations: RotationData[],
+         onRotEnd?: () => void) {
+        return target.addComponentOrReplace(new MUARotatorComponent(target, rotations, angularSpeed, Mode.Loop, onRotEnd));
+    }
+
+    to(target: Entity,
+       angularSpeed: number,
+       to: Quaternion,
+       onRotEnd?: () => void) {
+        const t = target.getComponent(Transform).rotation
+        return this.fromTo(target, angularSpeed, new RotationData(t, 0), new RotationData(to, 0), onRotEnd);
+    }
+
+
+    fromTo(target: Entity,
+           angularSpeed: number,
+           from: RotationData,
+           to: RotationData,
+           onRotEnd?: () => void) {
+        return this.path(target, angularSpeed, [from, to], onRotEnd);
+    }
+
+
+    path(target: Entity,
+         angularSpeed: number,
+         rotations: RotationData[],
+         onRotEnd?: () => void) {
+        return target.addComponentOrReplace(new MUARotatorComponent(target, rotations, angularSpeed, Mode.Once, onRotEnd));
+    }
+
 
     constructor() {
         engine.addSystem(new MUARotatorSystem())
     }
-
-    setRotation(host: Entity, angularSpeed: number,
-                axis: string): void {
-        host.addComponent(new MUARotatorComponent(angularSpeed, axis, host))
-    }
 }
 
-export default new RotateUtils()
+export default new Rotator()
